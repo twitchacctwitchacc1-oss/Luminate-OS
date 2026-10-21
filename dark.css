@@ -1,0 +1,5 @@
+/* ===== Dark mode: cambia il tema di tutto l'emulatore ===== */
+#phone.dark{--fg:#fff;--bg:#000;--gl:rgba(30,30,30,.7);--card:rgba(30,30,30,.7);--bub:#2c2c2e}
+#phone.dark #wall,#phone.dark #lock{filter:brightness(.55)}
+#phone.dark #shade,#phone.dark #cc{background:rgba(20,20,20,.6)}
+#phone.dark .glass{border-color:rgba(255,255,255,.15)}
