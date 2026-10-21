@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Nexus Web OS</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+
+    <div class="phone-container">
+        <!-- Dynamic Island / Hardware notch -->
+        <div class="notch">
+            <div class="camera"></div>
+            <div class="sensor"></div>
+        </div>
+
+        <!-- Schermo del Sistema Operativo -->
+        <main class="system-screen" id="systemScreen">
+            <!-- Barra di Stato di Sistema -->
+            <header class="status-bar">
+                <span id="statusClock">00:00</span>
+                <span class="os-brand">NexusOS</span>
+                <span class="status-icons">5G ⚡ <span id="battery">100%</span></span>
+            </header>
+
+            <!-- Widget Lock / Home -->
+            <section class="home-widget">
+                <h1 id="homeClock">00:00</h1>
+                <p id="homeDate">Caricamento...</p>
+            </section>
+
+            <!-- Griglia Applicazioni Native -->
+            <section class="app-grid">
+                <button class="app-btn" onclick="System.openApp('notesApp')">
+                    <div class="app-icon notes-icon">📝</div>
+                    <span class="app-label">Note</span>
+                </button>
+
+                <button class="app-btn" onclick="System.openApp('calcApp')">
+                    <div class="app-icon calc-icon">🧮</div>
+                    <span class="app-label">Calcolatrice</span>
+                </button>
+
+                <button class="app-btn" onclick="System.openApp('browserApp')">
+                    <div class="app-icon browser-icon">🌐</div>
+                    <span class="app-label">Browser</span>
+                </button>
+
+                <button class="app-btn" onclick="System.openApp('settingsApp')">
+                    <div class="app-icon settings-icon">⚙️</div>
+                    <span class="app-label">Impostazioni</span>
+                </button>
+            </section>
+
+            <!-- Dock Inferiore -->
+            <nav class="system-dock">
+                <button class="app-btn" onclick="System.openApp('notesApp')">
+                    <div class="app-icon">💬</div>
+                </button>
+                <button class="app-btn" onclick="System.openApp('settingsApp')">
+                    <div class="app-icon">⚙️</div>
+                </button>
+            </nav>
+        </main>
+
+        <!-- SUB-SISTEMA APPLICAZIONI (Finestre di Sistema) -->
+
+        <!-- 1. APP NOTE -->
+        <div class="app-window" id="notesApp">
+            <header class="window-header">
+                <h2>Note di Sistema</h2>
+                <button class="close-btn" onclick="System.closeApp('notesApp')">Chiudi ✕</button>
+            </header>
+            <div class="window-body">
+                <textarea id="noteInput" placeholder="Scrivi una nota..."></textarea>
+                <button class="action-btn" onclick="NotesApp.addNote()">Salva Nota</button>
+                <div id="notesContainer" class="notes-list"></div>
+            </div>
+        </div>
+
+        <!-- 2. APP CALCOLATRICE -->
+        <div class="app-window" id="calcApp">
+            <header class="window-header">
+                <h2>Calcolatrice</h2>
+                <button class="close-btn" onclick="System.closeApp('calcApp')">Chiudi ✕</button>
+            </header>
+            <div class="window-body">
+                <div class="calc-display" id="calcDisplay">0</div>
+                <div class="calc-grid">
+                    <button onclick="CalcApp.clear()">C</button>
+                    <button onclick="CalcApp.press('/')">/</button>
+                    <button onclick="CalcApp.press('*')">*</button>
+                    <button onclick="CalcApp.press('-')">-</button>
+                    <button onclick="CalcApp.press('7')">7</button>
+                    <button onclick="CalcApp.press('8')">8</button>
+                    <button onclick="CalcApp.press('9')">9</button>
+                    <button onclick="CalcApp.press('+')">+</button>
+                    <button onclick="CalcApp.press('4')">4</button>
+                    <button onclick="CalcApp.press('5')">5</button>
+                    <button onclick="CalcApp.press('6')">6</button>
+                    <button onclick="CalcApp.eval()" class="equal">=</button>
+                    <button onclick="CalcApp.press('1')">1</button>
+                    <button onclick="CalcApp.press('2')">2</button>
+                    <button onclick="CalcApp.press('3')">3</button>
+                    <button onclick="CalcApp.press('0')">0</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. APP BROWSER -->
+        <div class="app-window" id="browserApp">
+            <header class="window-header">
+                <h2>Web Browser</h2>
+                <button class="close-btn" onclick="System.closeApp('browserApp')">Chiudi ✕</button>
+            </header>
+            <div class="window-body">
+                <div class="browser-bar">
+                    <input type="text" id="browserUrl" value="https://wikipedia.org">
+                    <button class="action-btn" onclick="BrowserApp.load()">Vai</button>
+                </div>
+                <iframe id="browserFrame" src="https://wikipedia.org" class="browser-frame"></iframe>
+            </div>
+        </div>
+
+        <!-- 4. APP IMPOSTAZIONI -->
+        <div class="app-window" id="settingsApp">
+            <header class="window-header">
+                <h2>Impostazioni OS</h2>
+                <button class="close-btn" onclick="System.closeApp('settingsApp')">Chiudi ✕</button>
+            </header>
+            <div class="window-body">
+                <h3>Sfondo Desktop</h3>
+                <div class="theme-picker">
+                    <button onclick="System.setTheme('linear-gradient(135deg, #0f172a, #1e293b)')" style="background:#0f172a;"></button>
+                    <button onclick="System.setTheme('linear-gradient(135deg, #2563eb, #7c3aed)')" style="background:#2563eb;"></button>
+                    <button onclick="System.setTheme('linear-gradient(135deg, #f59e0b, #ef4444)')" style="background:#f59e0b;"></button>
+                </div>
+                <hr style="margin:20px 0; border:0; border-top:1px solid #ddd;">
+                <p><b>OS Version:</b> 1.0 Web Native</p>
+                <p><b>Engine:</b> Pure JavaScript V8 / Gecko</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="os.js"></script>
+</body>
+</html>
